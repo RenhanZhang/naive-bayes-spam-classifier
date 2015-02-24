@@ -86,7 +86,6 @@ def testset_prep(data):
             spam.append(True)
     return [spam, test_set]
 
-print '......Q4.2b.......'
 f = open('SMSSpamCollection.train');
 collection = f.readlines();
 spam_corpus = [];
