@@ -3,8 +3,6 @@ import math
 def diagnose(str):
     syndrome = []
 
-    #pound
-
     #telephone
     if(re.search('\d{5,}|(?:\d{3,}\s+)+\d+|(?:\d{3,}-+)+\d+', str)):
         syndrome.append(True)
@@ -86,6 +84,7 @@ def testset_prep(data):
             spam.append(True)
     return [spam, test_set]
 
+#do training
 f = open('SMSSpamCollection.train');
 collection = f.readlines();
 spam_corpus = [];
@@ -113,9 +112,11 @@ ham_stat = []
 for sms in ham_corpus:
     ham_stat.append(diagnose(sms))
 
+#learn the likelihood of each features
 spam_conditional = learn(spam_stat)
 ham_conditional = learn(ham_stat)
 
+#prior probability
 spam_prior = float(len(spam_stat))/len(collection)
 ham_prior = float(len(ham_stat))/len(collection)
 
@@ -129,13 +130,5 @@ count = 0
 for i in range(0, len(test)):
     if spam[i] != bayes_prediction[i]:
         count = count + 1
-        '''
-        if spam[i]:
-            print 'spam: ' + test[i]
-        else:
-            print 'non-spam: ' + test[i]
-        '''
 error = float(count)/len(test)
 print 'The misclassfication rate of spam SMS is ' + str(error*100) +'%'
-a = 0
-#customer, win ,free, http, pound, call, subscribe, you, your, yr, u, reward
